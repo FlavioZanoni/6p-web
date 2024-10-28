@@ -1,1 +1,1 @@
-# GO CRUD me up nextjs front-end template
+# Trabalho web 2bi 6p
