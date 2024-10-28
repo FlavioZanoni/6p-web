@@ -1,11 +1,12 @@
 "use client"
+import { Products, getProducts } from "@api/products"
+import { ProductForm } from "@components/Forms/ProductsForm"
 import { getMe } from "@api/getMe"
 import { ListPage } from "@components/pages/ListPage"
 import { useUserContext } from "@context/userContext"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { DefaultPage } from "../components/Skeletons"
-import { Example, getExample } from "../lib/api/example"
 
 export default function Home() {
   const [currentId, setCurrentId] = useState<number | undefined>(undefined)
@@ -21,16 +22,17 @@ export default function Home() {
   if (isLoadingCtx) return <DefaultPage />
 
   return (
-    <ListPage<Example>
-      instances={["Example"]}
-      apiFunction={getExample}
-      title={"Example"}
-      subtitle={"Lista de Example cadastradas"}
-      label={"Example"}
+    <ListPage<Products>
+      instances={["Products"]}
+      apiFunction={getProducts}
+      title={"Products"}
+      subtitle={"Lista de Produtos cadastrados"}
+      label={"Products"}
       currentId={currentId}
       setCurrentId={setCurrentId}
-      search
+      form={ProductForm}
     />
   )
+
 }
 

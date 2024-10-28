@@ -1,6 +1,6 @@
 "use client"
 import { Suppliers, getSuppliers } from "@api/suppliers"
-import { SuppliersForm } from "@components/Forms/SuppliersForm"
+import { SupplierForm } from "@components/Forms/SupplierForm"
 import { ListPage } from "@components/pages/ListPage"
 import { useState } from "react"
 
@@ -9,19 +9,14 @@ const Suppliers = () => {
 
   return (
     <ListPage<Suppliers>
-      instances={["Admin"]}
+      instances={["Suppliers"]}
       apiFunction={getSuppliers}
       title={"Suppliers"}
       subtitle={"Lista de Fornecedores cadastrados"}
       label={"Suppliers"}
       currentId={currentId}
       setCurrentId={setCurrentId}
-      form={SuppliersForm}
-      apiParams={[
-        { key: "role", value: "Admin" },
-      ]}
-      dividerLabel={["Admin"]}
-      search
+      form={SupplierForm}
     />
   )
 }

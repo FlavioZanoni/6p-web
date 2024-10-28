@@ -1,6 +1,6 @@
 "use client"
 import { Clients, getClients } from "@api/clients"
-import { ClientsForm } from "@components/Forms/ClientsForm"
+import { ClientForm } from "@components/Forms/ClientsForm"
 import { ListPage } from "@components/pages/ListPage"
 import { useState } from "react"
 
@@ -9,19 +9,14 @@ const Clients = () => {
 
   return (
     <ListPage<Clients>
-      instances={["Admin"]}
+      instances={["Clients"]}
       apiFunction={getClients}
       title={"Clients"}
       subtitle={"Lista de Clientes cadastrados"}
       label={"Clients"}
       currentId={currentId}
       setCurrentId={setCurrentId}
-      form={ClientsForm}
-      apiParams={[
-        { key: "role", value: "Admin" },
-      ]}
-      dividerLabel={["Admin"]}
-      search
+      form={ClientForm}
     />
   )
 }
