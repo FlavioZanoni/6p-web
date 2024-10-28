@@ -150,7 +150,6 @@ function PaginatedList<T extends DefType>({
           </div>
         )}
       </div>
-      )
 
       {(hasNextPage || isLoading) && !!data && (
         <Button

@@ -1,5 +1,7 @@
-import { Roles } from "@/app/lib/api"
-import { ExampleForm } from "../Forms/ExampleForm"
+import { Roles } from "@lib/api"
+import { ProductForm } from "../Forms/ProductsForm"
+import { SupplierForm } from "../Forms/SupplierForm"
+import { ClientForm } from "../Forms/ClientsForm"
 
 export const noMenuPaths = []
 
@@ -24,9 +26,19 @@ export type Menu = {
 export const createMenus = (): Menu[] => {
   return [
     {
-      title: "Novo Example",
-      path: "/",
-      component: ExampleForm,
+      title: "Novo Produto",
+      path: "^/$",
+      component: ProductForm,
+      roles: ["exampleRole"],
+    }, {
+      title: "Novo Fornecedor",
+      path: "^/menu/suppliers$",
+      component: SupplierForm,
+      roles: ["exampleRole"],
+    }, {
+      title: "Novo Cliente",
+      path: "^/menu/clients$",
+      component: ClientForm,
       roles: ["exampleRole"],
     },
   ]

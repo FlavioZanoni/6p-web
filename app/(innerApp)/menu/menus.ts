@@ -1,10 +1,20 @@
 export const getMenus = () => {
   return [
     {
-      name: "Example",
+      name: "Produtos",
       icon: "diversity_3",
-      path: "/menu/Example",
-      allowedRoles: ["Admin"],
+      path: "/",
+      allowedRoles: ["exampleRole"],
+    }, {
+      name: "Fornecedores",
+      icon: "diversity_3",
+      path: "/menu/suppliers",
+      allowedRoles: ["exampleRole"],
+    }, {
+      name: "Clientes",
+      icon: "diversity_3",
+      path: "/menu/clients",
+      allowedRoles: ["exampleRole"],
     },
   ]
 }
