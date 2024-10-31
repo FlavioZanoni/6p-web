@@ -30,6 +30,11 @@ export const Links = () => {
       link: "/menu/suppliers",
       roles: []
     },
+    {
+      title: "Menu",
+      icon: "more_horiz",
+      link: "/menu",
+    },
   ]
   const desktopMenus = [
     {
@@ -51,6 +56,11 @@ export const Links = () => {
       icon: "diversity_2",
       link: "/menu/suppliers",
       roles: []
+    },
+    {
+      title: "Menu",
+      icon: "more_horiz",
+      link: "/menu",
     },
   ]
 

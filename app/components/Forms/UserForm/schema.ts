@@ -5,9 +5,10 @@ export const validationSchema = () => {
     .object({
       name: z
         .string({
-          required_error: "Email é obrigatório",
-        }).trim()
-        .email("Email inválido"),
+          required_error: "Nome é obrigatório",
+        })
+        .trim()
+        .min(5, "O nome deve ter no mínimo 5 caracteres"),
       email: z
         .string({
           required_error: "Email é obrigatório",

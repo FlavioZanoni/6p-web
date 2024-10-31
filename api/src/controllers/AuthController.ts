@@ -47,8 +47,6 @@ export class AuthController {
             expiresIn: '1d'
         })
 
-        console.log(user)
-
         const { password: _, ...userWithoutPassword } = user
         return res.json({ token, ...userWithoutPassword })
     }

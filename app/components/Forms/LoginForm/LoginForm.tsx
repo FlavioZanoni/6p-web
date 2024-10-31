@@ -12,7 +12,6 @@ import Cookies from "universal-cookie"
 import { validationSchema } from "./schema"
 import { TOKEN_COOKIE_NAME } from "@/app/lib/constants"
 import { useUserContext } from "@/app/lib/context/userContext"
-import router from "next/router"
 import { useRouter } from 'next/navigation'
 
 type FormValues = {
