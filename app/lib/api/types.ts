@@ -18,43 +18,24 @@ export interface IError {
 }
 
 export interface Pagination<T> {
-  empty: boolean
-  first: boolean
-  last: boolean
-  number: number
-  numberOfElements: number
-  pageable: {
-    offset: number
-    pageNumber: number
-    pageSize: number
-    paged: boolean
-    sort: {
-      empty: boolean
-      sorted: boolean
-      unsorted: boolean
-    }
-    unpaged: boolean
+  meta: {
+    page: number
+    limit: number
+    total: number
+    last: boolean
+    last_page: number
   }
-  size: number
-  sort: {
-    empty: boolean
-    sorted: boolean
-    unsorted: boolean
-  }
-  totalElements: number
-  totalPages: number
   content: T[]
 }
 
 export interface User {
   name: string
-  role: IUser["role"]
   company: Company
 }
 
 export interface GetApiParams {
   id?: number
-  offset: number
+  page: number
   limit: number
   filter?: string
 }

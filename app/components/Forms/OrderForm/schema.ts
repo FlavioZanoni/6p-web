@@ -1,7 +1,6 @@
-import { Roles } from "@/app/lib/api"
 import * as z from "zod"
 
-export const validationSchema = (role: Roles) => {
+export const validationSchema = () => {
   return z
     .object({
       data: z.date().max(new Date(), { message: "Data não pode ser no futuro" }),

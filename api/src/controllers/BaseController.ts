@@ -21,10 +21,12 @@ export class BaseController<T> {
         })
 
         return res.json({
-            data: items,
+            content: items,
             meta: {
                 total,
                 page,
+                limit,
+                last: items.length < limit,
                 last_page: Math.ceil(total / limit)
             }
         })

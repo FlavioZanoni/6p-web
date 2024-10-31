@@ -3,13 +3,13 @@ import { GetApiParams, Pagination } from "../types"
 import { MutateClients, Clients } from "./types"
 
 export const getClients = async ({
-  offset,
+  page,
   limit,
   filter,
 }: GetApiParams) => {
   return makeApiRequest<Pagination<Clients>>({
     method: "get",
-    url: `clients?offset=${offset}&limit=${limit}${filter || ""}`,
+    url: `clients?page=${page}&limit=${limit}${filter || ""}`,
   })
 }
 

@@ -9,14 +9,14 @@ export class AuthController {
         const { email, password, name } = req.body
 
         const userRepository = AppDataSource.getRepository(User)
-        
+
         const userExists = await userRepository.findOne({ where: { email } })
         if (userExists) {
             return res.status(400).json({ error: 'User already exists' })
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
-        
+
         const user = userRepository.create({
             email,
             password: hashedPassword,
@@ -24,7 +24,7 @@ export class AuthController {
         })
 
         await userRepository.save(user)
-        
+
         return res.status(201).json({ user })
     }
 
@@ -32,7 +32,7 @@ export class AuthController {
         const { email, password } = req.body
 
         const userRepository = AppDataSource.getRepository(User)
-        
+
         const user = await userRepository.findOne({ where: { email } })
         if (!user) {
             return res.status(400).json({ error: 'User not found' })
@@ -47,6 +47,9 @@ export class AuthController {
             expiresIn: '1d'
         })
 
-        return res.json({ token })
+        console.log(user)
+
+        const { password: _, ...userWithoutPassword } = user
+        return res.json({ token, ...userWithoutPassword })
     }
 }

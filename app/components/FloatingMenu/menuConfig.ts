@@ -29,17 +29,14 @@ export const createMenus = (): Menu[] => {
       title: "Novo Produto",
       path: "^/$",
       component: ProductForm,
-      roles: ["exampleRole"],
     }, {
       title: "Novo Fornecedor",
       path: "^/menu/suppliers$",
       component: SupplierForm,
-      roles: ["exampleRole"],
     }, {
       title: "Novo Cliente",
       path: "^/menu/clients$",
       component: ClientForm,
-      roles: ["exampleRole"],
     },
   ]
 }

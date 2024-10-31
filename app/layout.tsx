@@ -24,7 +24,6 @@ export const metadata: Metadata = {
     default: title,
     template: "%s | " + title,
   },
-  manifest: "/manifest.json",
 }
 
 export const viewport: Viewport = {

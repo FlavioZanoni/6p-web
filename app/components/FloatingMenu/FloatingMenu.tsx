@@ -19,9 +19,6 @@ export const FloatingMenu: React.FC = () => {
     const currentMenu = menus.find(menu => new RegExp(menu.path).test(path))
     if (!currentMenu) return false
     if (!currentMenu.roles) return true
-    if (currentMenu.roles.includes(userCtx?.role!)) {
-      return true
-    }
     return false
   }
   //ensures that the menu is closed when the path changes
@@ -58,8 +55,7 @@ export const FloatingMenu: React.FC = () => {
         if (!regex.test(path) || !openDrawer) return
         if (
           menu.roles &&
-          menu.roles.length > 0 &&
-          !menu.roles.includes(userCtx?.role!)
+          menu.roles.length > 0
         ) {
           return null
         }
@@ -72,8 +68,7 @@ export const FloatingMenu: React.FC = () => {
             >
               {menu.subMenus.map((subMenu, index) => {
                 if (
-                  subMenu.roles.length > 0 &&
-                  !subMenu.roles.includes(userCtx?.role!)
+                  subMenu.roles.length > 0
                 ) {
                   return null
                 }

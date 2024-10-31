@@ -1,25 +1,20 @@
 "use client"
 import { Products, getProducts } from "@api/products"
 import { ProductForm } from "@components/Forms/ProductsForm"
-import { getMe } from "@api/getMe"
 import { ListPage } from "@components/pages/ListPage"
 import { useUserContext } from "@context/userContext"
-import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
-import { DefaultPage } from "../components/Skeletons"
+import { useEffect, useState } from "react"
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [currentId, setCurrentId] = useState<number | undefined>(undefined)
-  const { setUserCtx } = useUserContext()
 
-  // using this instead of the ctx itself because of the access to the loading state, making it an smoothier experience
-  const { isLoading: isLoadingCtx } = useQuery(["getMePage"], getMe, {
-    onSuccess: (data) => {
-      setUserCtx(data)
-    },
-  })
+  const router = useRouter()
+  const { userCtx } = useUserContext()
 
-  if (isLoadingCtx) return <DefaultPage />
+  useEffect(() => {
+    if (!userCtx) router.push("/login")
+  }, [userCtx])
 
   return (
     <ListPage<Products>

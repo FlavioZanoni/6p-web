@@ -1,7 +1,6 @@
-import { Roles } from "@lib/api"
 import * as z from "zod"
 
-export const validationSchema = (role: Roles) => {
+export const validationSchema = () => {
   return z
     .object({
       active: z.boolean().optional(),
@@ -25,7 +24,7 @@ export const validationSchema = (role: Roles) => {
         .trim()
         .min(5, { message: "Endereço deve conter no minimo 5 caractéres" })
         .max(50, { message: "Endereço deve conter no maximo 50 caractéres" }),
-      
+
 
     }).strict()
 }

@@ -78,19 +78,19 @@ function PaginatedList<T extends DefType>({
         })
 
         return apiFunction({
-          offset: pageParam?.offset ?? 0,
+          page: pageParam?.page ?? 0,
           limit: 10,
           filter: filterBuilder(params),
         })
       },
       {
         getNextPageParam: (lastPage) => {
-          if (lastPage.last) {
+          if (lastPage.meta.last) {
             return undefined
           }
           return {
-            offset: lastPage.number + 1,
-            limit: lastPage.size,
+            page: lastPage.meta.page + 1,
+            limit: lastPage.meta.limit,
           }
         },
         keepPreviousData: false,
