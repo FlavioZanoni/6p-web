@@ -12,7 +12,6 @@ import { TOKEN_COOKIE_NAME, USER_COOKIE_NAME } from "@/app/lib/constants"
 const Menu = () => {
   const cookies = new Cookies()
   const router = useRouter()
-  const { userCtx } = useUserContext()
   const queryClient = useQueryClient()
   const menus = getMenus()
 
@@ -20,11 +19,6 @@ const Menu = () => {
     <div className="flex h-[calc(100dvh-104px-88px)] flex-col justify-between overflow-y-scroll">
       <div className="first:border-t first:border-primary-40">
         {menus.map((menu, index) => {
-          if (
-            !menu.allowedRoles.includes(userCtx?.role || "Admin")
-          ) {
-            return null
-          }
 
           return (
             <Link href={menu.path} key={index}>

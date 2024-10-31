@@ -1,7 +1,6 @@
-import { Roles } from "@/app/lib/api"
 import * as z from "zod"
 
-export const validationSchema = (role: Roles) => {
+export const validationSchema = () => {
   return z
     .object({
       pedidoId: z.number().positive({ message: "Pedido ID deve ser positivo" }),
