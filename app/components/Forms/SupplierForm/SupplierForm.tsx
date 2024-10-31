@@ -99,6 +99,24 @@ export const SupplierForm = ({ id, setOpenDrawer }: Props) => {
           {...register("name")}
           control={control}
         />
+        <TextField
+          label="CNPJ"
+          placeholder="cnpj"
+          {...register("cnpj")}
+          control={control}
+        />
+        <TextField
+          label="Contato"
+          placeholder="contact"
+          {...register("contact")}
+          control={control}
+        />
+        <TextField
+          label="Endereço"
+          placeholder="address"
+          {...register("address")}
+          control={control}
+        />
       </div>
       <div className="flex justify-end gap-4">
         <Button
