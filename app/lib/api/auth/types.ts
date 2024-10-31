@@ -9,15 +9,10 @@ export interface IToken {
 }
 
 export interface IUser {
-  id: number
-  name: string
-  role: Roles
+  token: string
   email: string
-  company: {
-    id: 0
-    name: string
-    active: boolean
-  }
+  name: string
+  id: string
 }
 export interface IUserLogin {
   login: string
@@ -26,7 +21,6 @@ export interface IUserLogin {
 
 export type IRegisterUser = Omit<IUser, "company" | "id" | "role"> & {
   password: string
-  isApplicator: boolean
 }
 
 export interface GenericResponse {
@@ -35,7 +29,8 @@ export interface GenericResponse {
 }
 
 export interface ILoginResponse {
-  status: string
   token: string
-  expiration: number
+  email: string
+  name: string
+  id: string
 }

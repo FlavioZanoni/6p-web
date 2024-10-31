@@ -9,13 +9,13 @@ const authHeaders = {
 export async function exemploDeUso() {
   try {
     const registerResponse = await fetch(`${API_URL}/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            email: "user@example.com",
-            password: "123456",
-            nome: "User Example"
-        })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: "user@example.com",
+        password: "123456",
+        name: "User Example"
+      })
     });
 
     const loginResponse = await fetch(`${API_URL}/login`, {

@@ -1,3 +1,4 @@
+"use client"
 import { loginUser } from "@auth/authApi"
 import { Button } from "@folhastech/design-system/Button"
 import { TextField } from "@folhastech/design-system/TextField"
@@ -5,12 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { IError } from "@lib/api"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
-import dayjs from "dayjs"
 import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import Cookies from "universal-cookie"
 import { validationSchema } from "./schema"
 import { TOKEN_COOKIE_NAME } from "@/app/lib/constants"
+import { useUserContext } from "@/app/lib/context/userContext"
+import router from "next/router"
+import { useRouter } from 'next/navigation'
 
 type FormValues = {
   login: string
@@ -18,14 +21,15 @@ type FormValues = {
 }
 
 type Props = {
-  setAllowGetMe: React.Dispatch<React.SetStateAction<boolean>>
   setErrorToast: React.Dispatch<
     React.SetStateAction<AxiosError<IError> | undefined>
   >
 }
 
-export const LoginForm = ({ setAllowGetMe, setErrorToast }: Props) => {
+export const LoginForm = ({ setErrorToast }: Props) => {
+  const router = useRouter()
   const cookies = new Cookies()
+  const { setUserCtx } = useUserContext()
 
   const { register, control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(validationSchema()),
@@ -34,13 +38,12 @@ export const LoginForm = ({ setAllowGetMe, setErrorToast }: Props) => {
     onSuccess: (data) => {
       cookies.set(TOKEN_COOKIE_NAME, data.token, {
         path: "/",
-        expires: data.expiration
-          ? new Date(data.expiration)
-          : dayjs().add(45, "day").toDate(),
       })
-      setAllowGetMe(true)
+      setUserCtx(data)
+      router.push("/")
     },
     onError: (error: AxiosError<IError>) => {
+      console.log("here")
       console.log("error", error)
       setErrorToast(error)
     },

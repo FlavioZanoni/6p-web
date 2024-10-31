@@ -1,35 +1,19 @@
 "use client"
 import { IError } from "@lib/api"
-import { getMe } from "@api/getMe"
 import { LoginForm } from "@components/Forms/LoginForm"
 import { useLayoutContext } from "@context/LayoutContext"
-import { useUserContext } from "@context/userContext"
 import { Drawer } from "@folhastech/design-system/Drawer"
 import { useSize } from "@folhastech/design-system/useSize"
-import { useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import Image from "next/image"
 import { useEffect, useState } from "react"
-import Cookies from "universal-cookie"
-import { useRouter } from "next/navigation"
-import { TOKEN_COOKIE_NAME, USER_COOKIE_NAME } from "@/app/lib/constants"
 
 const Login = () => {
-  const cookies = new Cookies()
-  const router = useRouter()
   const size = useSize()
   const isMobile = size === "sm" || size === "md"
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [allowGetMe, setAllowGetMe] = useState(false)
   const [errorToast, setErrorToast] = useState<AxiosError<IError>>()
   const { setToast } = useLayoutContext()
-  const { setUserCtx } = useUserContext()
-
-  useEffect(() => {
-    if (cookies.get(TOKEN_COOKIE_NAME)) {
-      setAllowGetMe(true) // adding this effect so user can't access the login page if he is already logged in
-    }
-  }, [allowGetMe])
 
   useEffect(() => {
     if (!errorToast) return
@@ -41,20 +25,6 @@ const Login = () => {
       type: "error",
     })
   }, [errorToast])
-
-  useQuery(["getMe"], getMe, {
-    enabled: allowGetMe,
-    onSuccess: (data) => {
-      router.push("/")
-      cookies.set(USER_COOKIE_NAME, data, { path: "/" })
-      setUserCtx(data)
-      setToast({
-        title: "Login efetuado com sucesso",
-        description: "Bem vindo",
-        type: "success",
-      })
-    },
-  })
 
   return (
     <div className="flex h-screen flex-col items-center justify-between overflow-x-clip lg:flex-row lg:items-start">
@@ -80,11 +50,11 @@ const Login = () => {
 
         <section className="flex max-w-[462px] flex-col gap-4 self-center p-6 pt-24 lg:pt-56">
           <h2 className="text-center text-lg font-bold text-primary-0">
-
+            Bem vindo ao Stockup
           </h2>
 
           <p className="text-center text-lg text-primary-0">
-            Entrar
+            Faça login para continuar
           </p>
         </section>
       </div>
@@ -103,7 +73,6 @@ const Login = () => {
               >
                 <LoginForm
                   setErrorToast={setErrorToast}
-                  setAllowGetMe={setAllowGetMe}
                 />
               </Drawer>
             </div>
@@ -114,7 +83,6 @@ const Login = () => {
               </h1>
               <LoginForm
                 setErrorToast={setErrorToast}
-                setAllowGetMe={setAllowGetMe}
               />
             </div>
           )}
