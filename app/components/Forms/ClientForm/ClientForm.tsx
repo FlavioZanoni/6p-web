@@ -35,7 +35,7 @@ export const ClientForm = ({ id, setOpenDrawer }: Props) => {
     })
 
   const { data, isLoading: isLoadingProduct } = useQuery(
-    ["getProduct", id],
+    ["getClien", id],
     () => getClientsById(id!),
     {
       enabled: !!id,
@@ -49,15 +49,15 @@ export const ClientForm = ({ id, setOpenDrawer }: Props) => {
   }, [data])
 
   const { mutate, isLoading } = useMutation(
-    ["mutateProduct"],
+    ["mutateClients"],
     (data: MutateClients) => mutateClients({ id: id, data: data }),
     {
       onSuccess: () => {
         setToast({
           type: "success",
-          title: "Product atualizada com sucesso",
+          title: "Cliente atualizada com sucesso",
         })
-        queryClient.invalidateQueries({ queryKey: ["getProduct", id] })
+        queryClient.invalidateQueries({ queryKey: ["getClients", id] })
         setOpenDrawer(false)
       },
       onError: (error: IError) => {
@@ -99,7 +99,7 @@ export const ClientForm = ({ id, setOpenDrawer }: Props) => {
           {...register("nome")}
           control={control}
         />
-         <TextField
+        <TextField
           label="CPF ou CPNJ"
           placeholder="cpf_cnpj"
           {...register("cpf_cnpj")}

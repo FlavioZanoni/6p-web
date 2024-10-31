@@ -12,7 +12,7 @@ export const Links = () => {
 
   const menus = [
     {
-      title: "Demandas",
+      title: "Produtos",
       icon: "home",
       link: "/",
       alt: "Início",
@@ -25,15 +25,9 @@ export const Links = () => {
       roles: []
     },
     {
-      title: "Profissionais",
+      title: "Fornecedores",
       icon: "diversity_2",
-      link: "/menu/professionals",
-      roles: []
-    },
-    {
-      title: "Menu",
-      icon: "more_horiz",
-      link: "/menu",
+      link: "/menu/suppliers",
       roles: []
     },
   ]

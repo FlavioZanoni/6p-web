@@ -1,19 +1,19 @@
-import { IError, Roles } from "@api/types"
+import { IError } from "@api/types"
 import { useLayoutContext } from "@context/LayoutContext"
 import { Button } from "@folhastech/design-system/Button"
-import { Select } from "@folhastech/design-system/Select"
 import { Autocomplete } from "@folhastech/design-system/Autocomplete"
 import { Switch } from "@folhastech/design-system/Switch"
 import { TextField } from "@folhastech/design-system/TextField"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useEffect } from "react"
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { FormSkeletons } from "../FormSkeletons"
 import { validationSchema } from "./schema"
-import { Products, MutateProducts, getProductsById, mutateProducts } from "@api/products"
-import { useUserContext } from "@/app/lib/context/userContext"
+import { MutateProducts, getProductsById, mutateProducts } from "@api/products"
+import { getSuppliers } from "@/app/lib/api/suppliers"
+import { filterBuilder } from "@/app/lib/filterBuilder"
 
 type Props = {
   id?: number
@@ -25,13 +25,13 @@ type Props = {
 export const ProductForm = ({ id, setOpenDrawer }: Props) => {
   const queryClient = useQueryClient()
   const { setToast } = useLayoutContext()
-  const { userCtx } = useUserContext()
-  const schema = validationSchema(userCtx?.role!)
+  const schema = validationSchema()
   type FormValues = z.infer<typeof schema>
+  const [querySupplier, setQuerySupplier] = useState<string>("")
 
   const { register, handleSubmit, control, reset, watch, setValue } =
     useForm<FormValues>({
-      resolver: zodResolver(validationSchema(userCtx?.role!)),
+      resolver: zodResolver(validationSchema()),
     })
 
   const { data, isLoading: isLoadingProduct } = useQuery(
@@ -49,15 +49,15 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
   }, [data])
 
   const { mutate, isLoading } = useMutation(
-    ["mutateProduct"],
+    ["mutateProducts"],
     (data: MutateProducts) => mutateProducts({ id: id, data: data }),
     {
       onSuccess: () => {
         setToast({
           type: "success",
-          title: "Product atualizada com sucesso",
+          title: "Produto atualizada com sucesso",
         })
-        queryClient.invalidateQueries({ queryKey: ["getProduct", id] })
+        queryClient.invalidateQueries({ queryKey: ["getProducts", id] })
         setOpenDrawer(false)
       },
       onError: (error: IError) => {
@@ -69,11 +69,44 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
     }
   )
 
+  const {
+    data: suppliers,
+    isLoading: isLoadingSupplier,
+    fetchNextPage: fetchNextSupplier,
+  } = useInfiniteQuery(
+    ["getSuppliers", querySupplier],
+    ({ pageParam }) => {
+      const params = []
+      if (querySupplier) {
+        params.push({
+          key: "search",
+          value: querySupplier,
+        })
+      }
+      return getSuppliers({
+        page: pageParam?.page ?? 0,
+        limit: 10,
+        filter: filterBuilder(params),
+      })
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.meta.last) {
+          return undefined
+        }
+        return {
+          offset: lastPage.meta.page + 1,
+          limit: lastPage.meta.limit,
+        }
+      },
+    }
+  )
+
   const onSubmit = async (data: FormValues) => {
     mutate(data)
   }
 
-  if (isLoadingProduct && id) return <FormSkeletons inputCount={3} />
+  if ((isLoadingProduct || isLoadingSupplier) && id) return <FormSkeletons inputCount={3} />
 
   return (
     <form
@@ -99,35 +132,55 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
           {...register("nome")}
           control={control}
         />
-         <TextField
+
+        <TextField
           label="Descrição"
-          placeholder="descricap"
+          placeholder="descricao"
           {...register("descricao")}
           control={control}
         />
-         <TextField
+        <TextField
           label="Preço"
           placeholder="preco"
           {...register("preco")}
+          type="number"
           control={control}
         />
-         <TextField
+        <TextField
           label="Quantidade"
           placeholder="quantidade"
           {...register("quantidade")}
+          type="number"
           control={control}
         />
-         <TextField
+        <TextField
           label="Imagem"
           placeholder="imagem"
           {...register("imagem")}
           control={control}
         />
-         <TextField
-          label="Fornecedor"
-          placeholder="fornecedorId"
-          {...register("fornecedorId")}
+
+        <Autocomplete
           control={control}
+          label="Fornecedor"
+          {...register("fornecedorId")}
+          placeholder={"Selecione o fornecedor"}
+
+          getMoreOptions={fetchNextSupplier}
+          options={suppliers}
+          filter={(query: string) => {
+            setQuerySupplier(query)
+          }}
+          getOptionLabel={(value: number | string) => {
+            const byId = suppliers?.pages
+              ?.map((page) =>
+                page.content?.filter((item) => {
+                  return item.id == value
+                })
+              )
+              .flat()[0]?.nome ?? ""
+            return byId
+          }}
         />
       </div>
       <div className="flex justify-end gap-4">

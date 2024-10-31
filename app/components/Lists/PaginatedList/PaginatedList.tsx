@@ -138,10 +138,10 @@ function PaginatedList<T extends DefType>({
                   >
                     {path ? (
                       <Link href={`${path}/${item?.id}`}>
-                        <Content label={item?.name} isArrow />
+                        <Content label={item?.nome} isArrow />
                       </Link>
                     ) : (
-                      <Content label={item?.name} />
+                      <Content label={item?.nome} />
                     )}
                   </div>
                 )

@@ -1,10 +1,9 @@
 import { ROLES } from "../constants"
-import { IUser } from "./auth"
 
 export type DefType = {
   active: boolean
   id: number
-  name: string
+  nome: string
 }
 
 export interface Company extends DefType { }

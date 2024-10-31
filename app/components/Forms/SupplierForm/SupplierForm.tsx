@@ -49,15 +49,15 @@ export const SupplierForm = ({ id, setOpenDrawer }: Props) => {
   }, [data])
 
   const { mutate, isLoading } = useMutation(
-    ["mutateProduct"],
+    ["mutateSupplier"],
     (data: MutateSuppliers) => mutateSuppliers({ id: id, data: data }),
     {
       onSuccess: () => {
         setToast({
           type: "success",
-          title: "Product atualizada com sucesso",
+          title: "Fornecedor atualizada com sucesso",
         })
-        queryClient.invalidateQueries({ queryKey: ["getProduct", id] })
+        queryClient.invalidateQueries({ queryKey: ["getSupplier", id] })
         setOpenDrawer(false)
       },
       onError: (error: IError) => {
