@@ -7,6 +7,7 @@ import { useSize } from "@folhastech/design-system/useSize"
 import { AxiosError } from "axios"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { UserForm } from "@/app/components/Forms/UserForm"
 
 const Login = () => {
   const size = useSize()
@@ -14,6 +15,7 @@ const Login = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [errorToast, setErrorToast] = useState<AxiosError<IError>>()
   const { setToast } = useLayoutContext()
+  const [openNewUser, setOpenNewUser] = useState(false)
 
   useEffect(() => {
     if (!errorToast) return
@@ -25,6 +27,30 @@ const Login = () => {
       type: "error",
     })
   }, [errorToast])
+
+  const NewAccount = () => {
+    return (
+      <div className="flex items-center gap-2 self-center text-center text-lg">
+        <h3 className="text-sm text-gray-10 md:text-base"> Nao possui uma conta?</h3>
+
+        <Drawer
+          open={openNewUser}
+          setOpen={setOpenNewUser}
+          button={{
+            text: "clique aqui",
+            variant: "text",
+            className: "text-primary-20 text-sm md:text-base",
+          }}
+          title={"Criar conta"}
+          className="h-full lg:min-h-[710px] lg:min-w-[1032px]"
+        >
+          <div className="h-full">
+            <UserForm setOpenDrawer={setOpenNewUser} />
+          </div>
+        </Drawer>
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-screen flex-col items-center justify-between overflow-x-clip lg:flex-row lg:items-start">
@@ -75,6 +101,7 @@ const Login = () => {
                   setErrorToast={setErrorToast}
                 />
               </Drawer>
+              <NewAccount />
             </div>
           ) : (
             <div className="flex w-full max-w-[462px] flex-col gap-10 self-center ">
@@ -84,6 +111,7 @@ const Login = () => {
               <LoginForm
                 setErrorToast={setErrorToast}
               />
+              <NewAccount />
             </div>
           )}
         </section>
