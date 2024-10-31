@@ -95,8 +95,8 @@ export const ClientForm = ({ id, setOpenDrawer }: Props) => {
 
         <TextField
           label="Nome"
-          placeholder="name"
-          {...register("name")}
+          placeholder="nome"
+          {...register("nome")}
           control={control}
         />
          <TextField
@@ -107,14 +107,14 @@ export const ClientForm = ({ id, setOpenDrawer }: Props) => {
         />
         <TextField
           label="Contato"
-          placeholder="contact"
-          {...register("contact")}
+          placeholder="contato"
+          {...register("contato")}
           control={control}
         />
         <TextField
           label="Endereço"
-          placeholder="Address"
-          {...register("address")}
+          placeholder="endereco"
+          {...register("endereco")}
           control={control}
         />
       </div>

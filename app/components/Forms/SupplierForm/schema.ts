@@ -5,7 +5,7 @@ export const validationSchema = (role: Roles) => {
   return z
     .object({
       active: z.boolean().optional(),
-      name: z
+      nome: z
         .string()
         .trim()
         .min(5, { message: "Nome deve conter no minimo 5 caractéres" })
@@ -15,12 +15,12 @@ export const validationSchema = (role: Roles) => {
         .trim()
         .min(14, { message: "CNPJ deve conter no minimo 14 caractéres" })
         .max(14, { message: "CNPJ deve conter no maximo 14 caractéres" }),
-      contact: z
+      contato: z
         .string()
         .trim()
         .min(5, { message: "Contato deve conter no minimo 5 caractéres" })
         .max(50, { message: "Contato deve conter no maximo 50 caractéres" }),
-      address: z
+      endereco: z
         .string()
         .trim()
         .min(5, { message: "Endereço deve conter no minimo 5 caractéres" })

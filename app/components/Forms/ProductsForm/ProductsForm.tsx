@@ -96,37 +96,37 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
         <TextField
           label="Nome"
           placeholder="name"
-          {...register("name")}
+          {...register("nome")}
           control={control}
         />
          <TextField
           label="Descrição"
-          placeholder="description"
-          {...register("description")}
+          placeholder="descricap"
+          {...register("descricao")}
           control={control}
         />
          <TextField
           label="Preço"
-          placeholder="price"
-          {...register("price")}
+          placeholder="preco"
+          {...register("preco")}
           control={control}
         />
          <TextField
           label="Quantidade"
-          placeholder="Quantity"
-          {...register("quantity")}
+          placeholder="quantidade"
+          {...register("quantidade")}
           control={control}
         />
          <TextField
           label="Imagem"
-          placeholder="image"
-          {...register("image")}
+          placeholder="imagem"
+          {...register("imagem")}
           control={control}
         />
          <TextField
           label="Fornecedor"
-          placeholder="supplier"
-          {...register("supplier")}
+          placeholder="fornecedorId"
+          {...register("fornecedorId")}
           control={control}
         />
       </div>

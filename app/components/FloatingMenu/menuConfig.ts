@@ -1,7 +1,7 @@
 import { Roles } from "@lib/api"
 import { ProductForm } from "../Forms/ProductsForm"
 import { SupplierForm } from "../Forms/SupplierForm"
-import { ClientForm } from "../Forms/ClientsForm"
+import { ClientForm } from "../Forms/ClientForm"
 
 export const noMenuPaths = []
 

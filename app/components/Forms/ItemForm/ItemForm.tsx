@@ -77,26 +77,26 @@ export const ItemForm = ({ id, setOpenDrawer }: Props) => {
       <div className="flex flex-col gap-4">
         <TextField
           label="Pedido"
-          placeholder="orderId"
-          {...register("orderId")}
+          placeholder="pedidoId"
+          {...register("pedidoId")}
           control={control}
         />
         <TextField
           label="Produto"
-          placeholder="productId"
-          {...register("productId")}
+          placeholder="produtoId"
+          {...register("produtoId")}
           control={control}
         />
         <TextField
           label="Quantidade"
-          placeholder="quantity"
-          {...register("quantity")}
+          placeholder="quantidade"
+          {...register("quantidade")}
           control={control}
         />
         <TextField
           label="Preço"
-          placeholder="price"
-          {...register("price")}
+          placeholder="precoUnitario"
+          {...register("precoUnitario")}
           control={control}
         />
       </div>

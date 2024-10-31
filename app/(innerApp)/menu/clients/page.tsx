@@ -1,6 +1,6 @@
 "use client"
 import { Clients, getClients } from "@api/clients"
-import { ClientForm } from "@components/Forms/ClientsForm"
+import { ClientForm } from "@/app/components/Forms/ClientForm"
 import { ListPage } from "@components/pages/ListPage"
 import { useState } from "react"
 

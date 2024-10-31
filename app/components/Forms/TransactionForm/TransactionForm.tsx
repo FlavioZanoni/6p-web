@@ -105,16 +105,16 @@ export const TransactionForm = ({ id, setOpenDrawer }: Props) => {
         <TextField
           label="Produto ID"
           type="number"
-          placeholder="produto"
-          {...register("produto")}
+          placeholder="produtoId"
+          {...register("produtoId")}
           control={control}
         />
 
         <TextField
-          label="Pedido ID (Opcional)"
+          label="Pedido ID"
           type="number"
-          placeholder="pedido"
-          {...register("pedido")}
+          placeholder="pedidoId"
+          {...register("pedidoId")}
           control={control}
         />
       </div>

@@ -78,14 +78,14 @@ export const OrderForm = ({ id, setOpenDrawer }: Props) => {
         <TextField
           label="Data do Pedido"
           placeholder="data"
-          type="date"
+          type="data"
           {...register("data")}
           control={control}
         />
         <TextField
           label="ID do Cliente"
-          placeholder="clientId"
-          {...register("clientId")}
+          placeholder="clienteId"
+          {...register("clienteId")}
           control={control}
         />
         <TextField
