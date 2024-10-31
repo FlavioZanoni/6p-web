@@ -1,5 +1,4 @@
 "use client"
-import { useUserContext } from "@/app/lib/context/userContext"
 import { useSize } from "@folhastech/design-system/useSize"
 import clsx from "clsx"
 import Image from "next/image"
@@ -10,7 +9,6 @@ export const Links = () => {
   const size = useSize()
   const isMobile = size === "md" || size === "sm"
   const pathname = usePathname()
-  const { userCtx } = useUserContext()
 
   const menus = [
     {
@@ -41,7 +39,7 @@ export const Links = () => {
   ]
   const desktopMenus = [
     {
-      title: "Demandas",
+      title: "Produtos",
       isLogo: true,
       icon: "home",
       link: "/",
@@ -55,29 +53,17 @@ export const Links = () => {
       roles: []
     },
     {
-      title: "Profissionais",
+      title: "Fornecedores",
       icon: "diversity_2",
-      link: "/menu/professionals",
-      roles: []
-    },
-    {
-      title: "Usuário",
-      icon: "account_circle",
-      link: "/menu",
+      link: "/menu/suppliers",
       roles: []
     },
   ]
 
-  if (!userCtx?.name) {
-    return <> </>
-  }
-
   if (!isMobile) {
     return (
       <>
-        {desktopMenus.filter((item) => {
-          return !!item.roles.includes(userCtx?.role as never)
-        }).map((menu) => {
+        {desktopMenus.map((menu) => {
           return (
             <Link
               key={menu.link}
@@ -96,7 +82,7 @@ export const Links = () => {
                 {menu.isLogo ? (
                   <Image
                     src={
-                      pathname !== menu.link ? "/logo.svg" : "/logo-white.svg"
+                      "/logo.svg"
                     }
                     alt="Logo"
                     width={24}
@@ -128,9 +114,7 @@ export const Links = () => {
 
   return (
     <>
-      {menus.filter((item) => {
-        return !!item.roles.includes(userCtx?.role as never)
-      }).map((menu) => {
+      {menus.map((menu) => {
         return (
           <Link key={menu.link} href={menu.link}>
             <div
