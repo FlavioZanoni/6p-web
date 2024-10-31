@@ -1,6 +1,6 @@
 "use client"
 import { Example, getExample } from "@api/example"
-import { ExampleForm } from "@components/Forms/ExampleForm"
+import { ExampleForm } from "@/app/components/Forms/ExampleForm"
 import { ListPage } from "@components/pages/ListPage"
 import { useState } from "react"
 
