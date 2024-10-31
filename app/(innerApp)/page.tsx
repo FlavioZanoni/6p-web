@@ -20,9 +20,9 @@ export default function Home() {
     <ListPage<Products>
       instances={["Products"]}
       apiFunction={getProducts}
-      title={"Products"}
+      title={"Produtos"}
       subtitle={"Lista de Produtos cadastrados"}
-      label={"Products"}
+      label={"Produtos"}
       currentId={currentId}
       setCurrentId={setCurrentId}
       form={ProductForm}

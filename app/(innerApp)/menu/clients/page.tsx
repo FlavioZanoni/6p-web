@@ -11,9 +11,9 @@ const Clients = () => {
     <ListPage<Clients>
       instances={["Clients"]}
       apiFunction={getClients}
-      title={"Clients"}
-      subtitle={"Lista de Clientes cadastrados"}
-      label={"Clients"}
+      title={"Clientes"}
+      subtitle={"Lista de clientes cadastrados"}
+      label={"Clientes"}
       currentId={currentId}
       setCurrentId={setCurrentId}
       form={ClientForm}

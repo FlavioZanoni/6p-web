@@ -11,9 +11,9 @@ const Suppliers = () => {
     <ListPage<Suppliers>
       instances={["Suppliers"]}
       apiFunction={getSuppliers}
-      title={"Suppliers"}
-      subtitle={"Lista de Fornecedores cadastrados"}
-      label={"Suppliers"}
+      title={"Fornecedores"}
+      subtitle={"Lista de fornecedores cadastrados"}
+      label={"Fornecedores"}
       currentId={currentId}
       setCurrentId={setCurrentId}
       form={SupplierForm}
