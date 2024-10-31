@@ -22,12 +22,12 @@ export const TransactionForm = ({ id, setOpenDrawer }: Props) => {
   const queryClient = useQueryClient()
   const { setToast } = useLayoutContext()
   const { userCtx } = useUserContext()
-  const schema = validationSchema(userCtx?.role!)
+  const schema = validationSchema()
   type FormValues = z.infer<typeof schema>
 
   const { register, handleSubmit, control, reset, watch, setValue } =
     useForm<FormValues>({
-      resolver: zodResolver(validationSchema(userCtx?.role!)),
+      resolver: zodResolver(validationSchema()),
     })
 
   const { data, isLoading: isLoadingTransaction } = useQuery(

@@ -1,7 +1,6 @@
-import { Roles } from "@lib/api"
 import * as z from "zod"
 
-export const validationSchema = (role: Roles) => {
+export const validationSchema = () => {
   return z
     .object({
       active: z.boolean().optional(),
