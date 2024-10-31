@@ -16,4 +16,4 @@ export const validationSchema = (role: Roles) => {
         .max(999999, { message: "Preço maximo é de 999999" }),
 
     }).strict()
-}
+} 
