@@ -99,6 +99,36 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
           {...register("name")}
           control={control}
         />
+         <TextField
+          label="Descrição"
+          placeholder="description"
+          {...register("description")}
+          control={control}
+        />
+         <TextField
+          label="Preço"
+          placeholder="price"
+          {...register("price")}
+          control={control}
+        />
+         <TextField
+          label="Quantidade"
+          placeholder="Quantity"
+          {...register("quantity")}
+          control={control}
+        />
+         <TextField
+          label="Imagem"
+          placeholder="image"
+          {...register("image")}
+          control={control}
+        />
+         <TextField
+          label="Fornecedor"
+          placeholder="supplier"
+          {...register("supplier")}
+          control={control}
+        />
       </div>
       <div className="flex justify-end gap-4">
         <Button
