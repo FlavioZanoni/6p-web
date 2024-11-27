@@ -91,8 +91,7 @@ export const Links = () => {
                     alt="Logo"
                     width={24}
                     height={24}
-                    className={`h-full w-full ${pathname !== menu.link ? "" : "brightness-[0] invert"
-                      }`}
+                    className={`h-full w-full`}
                   />
                 ) : (
                   <span
