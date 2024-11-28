@@ -15,10 +15,18 @@ export class BaseController<T> {
         const limit = parseInt(req.query.limit as string) || 10
         const skip = (page - 1) * limit
 
+        const { filters, sortBy, order } = req.query;
+
+        const where = filters ? JSON.parse(filters as string) : {};
+
+        const orderOptions = sortBy ? { [sortBy as string]: (order as 'ASC' | 'DESC') || 'ASC' } : {};
+
         const [items, total] = await this.repository.findAndCount({
+            where,
+            order: orderOptions,
             skip,
-            take: limit
-        })
+            take: limit,
+        });
 
         return res.json({
             content: items,

@@ -4,6 +4,7 @@ import { ProductController } from "./controllers/ProductController";
 import { SupplierController } from "./controllers/SupplierController";
 import { ClientController } from "./controllers/ClientController";
 import { authMiddleware } from "./middlewares/auth";
+import { OrderController } from "./controllers/OrderController";
 
 const router = Router()
 const authController = new AuthController()
@@ -30,5 +31,12 @@ router.get('/products', productController.index.bind(productController))
 router.get('/products/:id', productController.show.bind(productController))
 router.post('/products', productController.store.bind(productController))
 router.put('/products/:id', productController.update.bind(productController))
+
+router.post('/orders', OrderController.createOrder);
+router.put('/orders/:id', OrderController.updateOrder);
+router.delete('/orders/:id', OrderController.deleteOrder);
+router.get('/orders', OrderController.listOrders);
+
+router.get('/transactions', OrderController.listTransactions);
 
 export { router }
