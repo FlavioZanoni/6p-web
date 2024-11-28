@@ -101,7 +101,7 @@ export class OrderController {
         try {
             const orderRepository = AppDataSource.getRepository(Order);
 
-            const { startDate, endDate, status, sortBy, order } = req.query;
+            const { startDate, endDate, status, sortBy, order, page = 1, limit = 10 } = req.query;
 
             const where: any = {};
 
@@ -120,20 +120,35 @@ export class OrderController {
                 orderOptions.date = 'ASC';
             }
 
-            const orders = await orderRepository.find({
+            const pageNumber = parseInt(page as string, 10);
+            const pageSize = parseInt(limit as string, 10);
+            const skip = (pageNumber - 1) * pageSize;
+
+            const [orders, total] = await orderRepository.findAndCount({
                 where,
                 order: orderOptions,
                 relations: ['orderItems', 'transactions'],
+                skip,
+                take: pageSize,
             });
 
-            return res.status(200).json(orders);
+            return res.status(200).json({
+                content: orders,
+                meta: {
+                    total,
+                    page: pageNumber,
+                    limit: pageSize,
+                    last: orders.length < pageSize,
+                    last_page: Math.ceil(total / pageSize),
+                },
+            });
         } catch (error) {
             return res.status(500).json({ error: 'Erro ao listar pedidos', details: error });
         }
     }
 
     static async listTransactions(req: Request, res: Response) {
-        const { type, startDate, endDate } = req.query;
+        const { type, startDate, endDate, page = 1, limit = 10 } = req.query;
 
         try {
             const transactionRepository = AppDataSource.getRepository(Transaction);
@@ -150,8 +165,24 @@ export class OrderController {
                 });
             }
 
-            const transactions = await queryBuilder.getMany();
-            return res.status(200).json(transactions);
+            const pageNumber = parseInt(page as string, 10);
+            const pageSize = parseInt(limit as string, 10);
+            const skip = (pageNumber - 1) * pageSize;
+
+            queryBuilder.skip(skip).take(pageSize);
+
+            const [transactions, total] = await queryBuilder.getManyAndCount();
+
+            return res.status(200).json({
+                content: transactions,
+                meta: {
+                    total,
+                    page: pageNumber,
+                    limit: pageSize,
+                    last: transactions.length < pageSize,
+                    last_page: Math.ceil(total / pageSize),
+                },
+            });
         } catch (error) {
             return res.status(500).json({ error: 'Erro ao listar transações', details: error });
         }
