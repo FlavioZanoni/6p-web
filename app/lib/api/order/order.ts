@@ -3,13 +3,13 @@ import { GetApiParams, Pagination } from "../types"
 import { MutateOrder, Order } from "./types"
 
 export const getOrders = async ({
-  offset,
+  page,
   limit,
   filter,
 }: GetApiParams) => {
   return makeApiRequest<Pagination<Order>>({
     method: "get",
-    url: `orders?offset=${offset}&limit=${limit}${filter || ""}`,
+    url: `orders?page=${page}&limit=${limit}${filter || ""}`,
   })
 }
 
