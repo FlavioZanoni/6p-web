@@ -11,6 +11,15 @@ import { OnClickProps } from "../../pages/ListPage"
 
 type ApiFunction<T> = (params?: GetApiParams) => Promise<Pagination<T>>
 
+export type Headers = {
+  key: string
+  value: string
+  isChip?: boolean
+  isDate?: boolean
+  isBoolean?: boolean
+  isMonetary?: boolean
+}[]
+
 type PageTableProps<T> = {
   form?: ({
     id,
@@ -79,25 +88,26 @@ function PaginatedTable<T extends DefType>({
         })
 
         return apiFunction({
-          offset: pageParam?.offset ?? 0,
+          page: pageParam?.page ?? 0,
           limit: 10,
           filter: filterBuilder(params),
         })
       },
       {
         getNextPageParam: (lastPage) => {
-          if (lastPage.last) {
+          if (lastPage.meta.last) {
             return undefined
           }
           return {
-            offset: lastPage.number + 1,
-            limit: lastPage.size,
+            page: lastPage.meta.page + 1,
+            limit: lastPage.meta.limit,
           }
         },
         keepPreviousData: false,
       }
     )
 
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaa")
   if (isLoading) {
     return (
       <Skeleton height={57} count={4} className="mt-6 first:mt-0" />

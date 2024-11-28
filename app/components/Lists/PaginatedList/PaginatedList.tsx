@@ -85,23 +85,23 @@ function PaginatedList<T extends DefType>({
       },
       {
         getNextPageParam: (lastPage) => {
-          if (lastPage.meta.last) {
+          if (lastPage?.meta?.last) {
             return undefined
           }
           return {
-            page: lastPage.meta.page + 1,
-            limit: lastPage.meta.limit,
+            page: lastPage?.meta?.page + 1,
+            limit: lastPage?.meta?.limit,
           }
         },
         keepPreviousData: false,
       }
     )
-
-  /* if (isLoading) {
+  console.log(isLoading)
+  if (isLoading) {
     return (
       <Skeleton height={57} count={4} className="mt-6 first:mt-0" />
     )
-  } */
+  }
 
   return (
     <>
@@ -119,7 +119,7 @@ function PaginatedList<T extends DefType>({
                   key: index,
                 })
               }
-              return page.content.map((item, index) => {
+              return page?.content?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -138,10 +138,10 @@ function PaginatedList<T extends DefType>({
                   >
                     {path ? (
                       <Link href={`${path}/${item?.id}`}>
-                        <Content label={item?.nome} isArrow />
+                        <Content label={item?.nome ?? item?.date} isArrow />
                       </Link>
                     ) : (
-                      <Content label={item?.nome} />
+                      <Content label={item?.nome ?? item?.date} />
                     )}
                   </div>
                 )

@@ -4,10 +4,11 @@ import { SearchBar } from "@folhastech/design-system/SearchBar"
 import React, { useState } from "react"
 import "react-loading-skeleton/dist/skeleton.css"
 import { PaginatedList } from "../../Lists/PaginatedList"
+import { PaginatedTable, Headers } from "../../Lists/PaginatedTable"
 
 export interface OnClickProps {
   e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  id: number
+  id: string
 }
 
 type ApiFunction<T> = (params?: any) => Promise<Pagination<T>>
@@ -17,16 +18,19 @@ type PageListProps<T> = {
     id,
     setOpenDrawer,
   }: {
-    id: number | undefined
+    id: string | undefined
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>
   }) => JSX.Element
-  filterForm?: JSX.Element
+  filterForm?: ({ children, setOpenDrawer }: {
+    children?: React.ReactNode
+    setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>
+  }) => JSX.Element
   title: string
   subtitle?: string
   label: string
   apiFunction: ApiFunction<T>
-  currentId: number | undefined
-  setCurrentId: React.Dispatch<React.SetStateAction<number | undefined>>
+  currentId: string | undefined
+  setCurrentId: React.Dispatch<React.SetStateAction<string | undefined>>
   onClick?: ({ e, id }: OnClickProps) => void
   search?: boolean
   instances: string[]
@@ -36,8 +40,13 @@ type PageListProps<T> = {
   }[]
   children?: React.ReactNode
   dividerLabel?: string[]
+  customModal?: React.ReactNode
   path?: string
   isDefaultList?: boolean
+  headers?: Headers
+  disableClick?: boolean
+  exportCsv?: boolean
+  infiniteScroll?: boolean
 }
 
 /**
@@ -89,28 +98,31 @@ function ListPage<T extends DefType>({
   instances,
   apiParams,
   children,
+  customModal,
   dividerLabel,
   path,
-  isDefaultList = true
+  isDefaultList = true,
+  headers,
+  infiniteScroll
 }: PageListProps<T>) {
   const [query, setQuery] = useState("")
   const [filterValues, setFilterValues] = useState({})
   const [isFormOpen, setIsFormOpen] = useState(false)
-
+  console.log(isDefaultList)
   return (
     <>
       <div
         className={
-          "flex h-[calc(100dvh-86px-88px)] flex-col gap-6 overflow-y-scroll bg-white p-6 lg:px-8"
+          "flex h-[calc(100dvh-86px-88px)] flex-col gap-6 overflow-y-scroll bg-white p-6 lg:px-8 lg:max-w-[calc(100vw-150px)]"
         }
       >
         <SecondaryHeader title={title} subtitle={subtitle} />
-        <div className="flex w-full flex-row">
+        <div className="flex w-full flex-row gap-2">
           {search && <SearchBar setQuery={setQuery}
             filterDrawer={filterForm ? {
               title: "Filtros",
               description: "Filtre os itens da lista",
-              form: filterForm,
+              form: React.createElement(filterForm, { setOpenDrawer: setIsFormOpen }),
               setFilterValues: setFilterValues,
               open: isFormOpen,
               setOpen: setIsFormOpen
@@ -145,11 +157,28 @@ function ListPage<T extends DefType>({
             >
               {children}
             </PaginatedList>
-
-            ) : (children)}
+            ) :
+              <PaginatedTable<T>
+                form={form}
+                title={title}
+                label={label}
+                apiFunction={apiFunction}
+                param={apiParams?.[index]}
+                currentId={currentId}
+                setCurrentId={setCurrentId}
+                onClick={onClick}
+                instance={instance}
+                customModal={customModal}
+                query={query}
+                filterValues={filterValues}
+                path={path}
+                headers={headers || []}
+                infiniteScroll={infiniteScroll}
+              />
+            }
           </div>
         ))}
-      </div>
+      </div >
     </>
   )
 }
