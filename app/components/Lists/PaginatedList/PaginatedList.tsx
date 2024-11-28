@@ -9,6 +9,7 @@ import React, { useState } from "react"
 import Skeleton from "react-loading-skeleton"
 import { OnClickProps } from "../../pages/ListPage"
 import { Content } from "./Content"
+import dayjs from "dayjs"
 
 type ApiFunction<T> = (params?: GetApiParams) => Promise<Pagination<T>>
 
@@ -141,7 +142,7 @@ function PaginatedList<T extends DefType>({
                         <Content label={item?.nome ?? item?.date} isArrow />
                       </Link>
                     ) : (
-                      <Content label={item?.nome ?? item?.date} />
+                      <Content label={item?.nome ?? dayjs(item?.date).format("DD/mm/YYYY")} />
                     )}
                   </div>
                 )
