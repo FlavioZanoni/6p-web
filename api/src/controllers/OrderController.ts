@@ -187,4 +187,30 @@ export class OrderController {
             return res.status(500).json({ error: 'Erro ao listar transações', details: error });
         }
     }
+
+    static async getOrderById(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+    
+            if (!id) {
+                return res.status(400).json({ error: 'O ID do pedido é obrigatório.' });
+            }
+    
+            const orderRepository = AppDataSource.getRepository(Order);
+    
+            const order = await orderRepository.findOne({
+                where: { id: parseInt(id, 10) },
+                relations: ['orderItems', 'transactions'],
+            });
+    
+            if (!order) {
+                return res.status(404).json({ error: 'Pedido não encontrado.' });
+            }
+    
+            return res.status(200).json(order);
+        } catch (error) {
+            return res.status(500).json({ error: 'Erro ao buscar pedido por ID.', details: error });
+        }
+    }
+    
 }
