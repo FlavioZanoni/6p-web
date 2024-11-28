@@ -95,8 +95,8 @@ export const SupplierForm = ({ id, setOpenDrawer }: Props) => {
 
         <TextField
           label="Nome"
-          placeholder="nome"
-          {...register("nome")}
+          placeholder="name"
+          {...register("name")}
           control={control}
         />
         <TextField

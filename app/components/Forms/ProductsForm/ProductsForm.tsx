@@ -129,7 +129,7 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
         <TextField
           label="Nome"
           placeholder="name"
-          {...register("nome")}
+          {...register("name")}
           control={control}
         />
 
@@ -178,7 +178,7 @@ export const ProductForm = ({ id, setOpenDrawer }: Props) => {
                   return item.id == value
                 })
               )
-              .flat()[0]?.nome ?? ""
+              .flat()[0]?.name ?? ""
             return byId
           }}
         />

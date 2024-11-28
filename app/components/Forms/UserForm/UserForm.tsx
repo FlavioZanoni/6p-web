@@ -63,7 +63,7 @@ export const UserForm: React.FC<Props> = ({ setOpenDrawer }) => {
       <div className="flex flex-col gap-4">
         <TextField
           label="Nome"
-          placeholder="Digite seu nome"
+          placeholder="Digite seu name"
           {...register("name")}
           control={control}
         />

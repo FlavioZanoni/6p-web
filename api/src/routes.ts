@@ -5,6 +5,7 @@ import { SupplierController } from "./controllers/SupplierController";
 import { ClientController } from "./controllers/ClientController";
 import { authMiddleware } from "./middlewares/auth";
 import { OrderController } from "./controllers/OrderController";
+import { ReportController } from "./controllers/ReportController";
 
 const router = Router()
 const authController = new AuthController()
@@ -40,5 +41,9 @@ router.get('/orders', OrderController.listOrders);
 
 router.get('/transactions', OrderController.listTransactions);
 router.get('/transactions/:id', OrderController.getTransactionById);
+
+router.get("/report/inventory", ReportController.getInventoryReport);
+router.get("/report/sales", ReportController.getSalesReport);
+router.get("/report/financial-transactions", ReportController.getFinancialTransactionReport);
 
 export { router }

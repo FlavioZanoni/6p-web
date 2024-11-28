@@ -2,6 +2,10 @@ import { Roles } from "@lib/api"
 import { ProductForm } from "../Forms/ProductsForm"
 import { SupplierForm } from "../Forms/SupplierForm"
 import { ClientForm } from "../Forms/ClientForm"
+import { OrderForm } from "../Forms/OrderForm"
+import InventoryReport from "../Report/InventoryReport"
+import SalesReport from "../Report/SalesReport"
+import FinancialTransactionsReport from "../Report/FinancialTransactionReport"
 
 export const noMenuPaths = []
 
@@ -26,17 +30,65 @@ export type Menu = {
 export const createMenus = (): Menu[] => {
   return [
     {
+      isSubMenu: true,
       title: "Novo Produto",
-      path: "^/$",
-      component: ProductForm,
-    }, {
+      path: "^/menu/products$",
+      subMenus: [
+        {
+          title: "Novo Produto",
+          component: ProductForm,
+          icon: "add",
+          roles: []
+        },
+        {
+          title: "Relatório de Estoque",
+          component: InventoryReport,
+          icon: "inventory",
+          roles: []
+        },
+      ]
+    },
+    {
       title: "Novo Fornecedor",
       path: "^/menu/suppliers$",
       component: SupplierForm,
-    }, {
+    },
+    {
       title: "Novo Cliente",
       path: "^/menu/clients$",
       component: ClientForm,
     },
+    {
+      isSubMenu: true,
+      title: "Novo Pedido",
+      path: "^/$",
+      subMenus: [
+        {
+          title: "Novo Pedido",
+          component: OrderForm,
+          icon: "add",
+          roles: []
+        },
+        {
+          title: "Relatório de Vendas",
+          component: SalesReport,
+          icon: "shopping_cart",
+          roles: []
+        }
+      ]
+    },
+    {
+      isSubMenu: true,
+      title: "Transações",
+      path: "^/menu/transactions$",
+      subMenus: [
+        {
+          title: "Relatório de Transações Financeiras",
+          component: FinancialTransactionsReport,
+          icon: "credit_card",
+          roles: []
+        },
+      ]
+    }
   ]
 }

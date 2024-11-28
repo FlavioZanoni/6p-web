@@ -139,10 +139,11 @@ function PaginatedList<T extends DefType>({
                   >
                     {path ? (
                       <Link href={`${path}/${item?.id}`}>
-                        <Content label={item?.nome ?? item?.date} isArrow />
+                        <Content label={item?.name ?? item?.date} isArrow />
                       </Link>
                     ) : (
-                      <Content label={item?.nome ?? dayjs(item?.date).format("DD/mm/YYYY")} />
+                      console.log(item),
+                      <Content label={item?.name ?? item.id + " - " + (item?.productId != null ? "Produto" : "Pedido") + " - " + dayjs(item?.date).format("DD/MM/YYYY")} />
                     )}
                   </div>
                 )

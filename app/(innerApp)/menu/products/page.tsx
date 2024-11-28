@@ -1,10 +1,10 @@
 "use client"
-import { Order, getOrders } from "@api/order"
 import { ListPage } from "@components/pages/ListPage"
 import { useUserContext } from "@context/userContext"
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
-import { OrderForm } from "@/app/components/Forms/OrderForm"
+import { getProducts, Products } from "@/app/lib/api/products"
+import { ProductForm } from "@/app/components/Forms/ProductsForm"
 
 export default function Home() {
   const [currentId, setCurrentId] = useState<number | undefined>(undefined)
@@ -17,15 +17,15 @@ export default function Home() {
   }, [userCtx])
 
   return (
-    <ListPage<Order>
-      instances={["Orders"]}
-      apiFunction={getOrders}
-      title={"Pedidos"}
-      subtitle={"Lista de Pedidos cadastrados"}
-      label={"Pedidos"}
+    <ListPage<Products>
+      instances={["Products"]}
+      apiFunction={getProducts}
+      title={"Produtos"}
+      subtitle={"Lista de Produtos cadastrados"}
+      label={"Produtos"}
       currentId={currentId}
       setCurrentId={setCurrentId}
-      form={OrderForm}
+      form={ProductForm}
     />
   )
 }

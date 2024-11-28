@@ -5,7 +5,7 @@ export const validationSchema = () => {
   return z
     .object({
       active: z.boolean().optional(),
-      nome: z
+      name: z
         .string()
         .trim()
         .min(5, { message: "Nome deve conter no minimo 5 caracteres" })

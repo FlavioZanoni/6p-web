@@ -1,7 +1,6 @@
 import { IError } from "@api/types"
 import { useLayoutContext } from "@context/LayoutContext"
 import { Button } from "@folhastech/design-system/Button"
-import { Select } from "@folhastech/design-system/Select"
 import { TextField } from "@folhastech/design-system/TextField"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
@@ -25,10 +24,9 @@ export const TransactionForm = ({ id, setOpenDrawer }: Props) => {
   const schema = validationSchema()
   type FormValues = z.infer<typeof schema>
 
-  const { register, handleSubmit, control, reset, watch, setValue } =
-    useForm<FormValues>({
-      resolver: zodResolver(validationSchema()),
-    })
+  const { register, handleSubmit, control, reset } = useForm<FormValues>({
+    resolver: zodResolver(validationSchema()),
+  })
 
   const { data, isLoading: isLoadingTransaction } = useQuery(
     ["getTransaction", id],
@@ -39,9 +37,17 @@ export const TransactionForm = ({ id, setOpenDrawer }: Props) => {
   )
 
   useEffect(() => {
-    if (isLoadingTransaction) return
-    if (!data) return
-  }, [data])
+    if (data && id) {
+      // Preenche o formulário com os dados da transação
+      reset({
+        date: data.date ? data.date.split("T")[0] : "",
+        type: data.type,
+        amount: data.amount,
+        productId: data.productId,
+        orderId: data.orderId,
+      })
+    }
+  }, [data, id, reset])
 
   const { mutate, isLoading } = useMutation(
     ["mutateTransaction"],
@@ -80,42 +86,43 @@ export const TransactionForm = ({ id, setOpenDrawer }: Props) => {
         <TextField
           label="Data da Transação"
           type="date"
-          {...register("data")}
+          {...register("date")}
           control={control}
+          readOnly
         />
 
-        <Select
+        <TextField
           label="Tipo da Transação"
-          options={[
-            { value: "Entrada", label: "Entrada" },
-            { value: "Saída", label: "Saída" },
-          ]}
-          {...register("tipo")}
+          {...register("type")}
           control={control}
+          readOnly
         />
 
         <TextField
           label="Valor"
           type="number"
           placeholder="valor"
-          {...register("valor")}
+          {...register("amount")}
           control={control}
+          readOnly
         />
 
         <TextField
           label="Produto ID"
           type="number"
           placeholder="produtoId"
-          {...register("produtoId")}
+          {...register("productId")}
           control={control}
+          readOnly
         />
 
         <TextField
           label="Pedido ID"
           type="number"
-          placeholder="pedidoId"
-          {...register("pedidoId")}
+          placeholder="Pedido"
+          {...register("orderId")}
           control={control}
+          readOnly
         />
       </div>
       <div className="flex justify-end gap-4">

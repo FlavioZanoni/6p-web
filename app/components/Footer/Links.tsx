@@ -12,9 +12,16 @@ export const Links = () => {
 
   const menus = [
     {
-      title: "Produtos",
+      title: "Pedidos",
       icon: "home",
       link: "/",
+      alt: "Início",
+      roles: []
+    },
+    {
+      title: "Products",
+      icon: "home",
+      link: "/menu/products",
       alt: "Início",
       roles: []
     },
@@ -38,10 +45,16 @@ export const Links = () => {
   ]
   const desktopMenus = [
     {
-      title: "Produtos",
-      isLogo: true,
+      title: "Pedidos",
       icon: "home",
       link: "/",
+      alt: "Início",
+      roles: []
+    },
+    {
+      title: "Produtos",
+      icon: "inventory_2",
+      link: "/menu/products",
       alt: "Início",
       roles: []
     },
@@ -55,6 +68,12 @@ export const Links = () => {
       title: "Fornecedores",
       icon: "diversity_2",
       link: "/menu/suppliers",
+      roles: []
+    },
+    {
+      title: "Transações",
+      icon: "receipt_long",
+      link: "/menu/transactions",
       roles: []
     },
     {

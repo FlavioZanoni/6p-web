@@ -3,7 +3,7 @@ import { ROLES } from "../constants"
 export type DefType = {
   active: boolean
   id: number
-  nome: string
+  name: string
 }
 
 export interface Company extends DefType { }

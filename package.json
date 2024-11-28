@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.7.2",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
     "@folhastech/design-system": "1.1.13",
     "@hookform/resolvers": "^3.1.0",
+    "@mui/material": "^6.1.9",
     "@next/bundle-analyzer": "^13.4.12",
     "@next/third-parties": "^14.0.1",
     "@radix-ui/react-toast": "^1.1.5",

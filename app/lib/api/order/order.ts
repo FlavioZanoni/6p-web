@@ -34,6 +34,7 @@ export const mutateOrder = async ({
   id?: number
   data: MutateOrder
 }) => {
+  console.log(data)
   if (id) {
     return makeApiRequest({
       method: "put",

@@ -24,5 +24,11 @@ export const getMenus = () => {
       path: "/menu/clients",
       allowedRoles: ["exampleRole"],
     },
+    {
+      name: "Transações",
+      icon: "receipt_long",
+      path: "/menu/transations",
+      allowedRoles: ["exampleRole"],
+    },
   ]
 }
