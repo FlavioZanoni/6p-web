@@ -6,9 +6,11 @@ import {
     OneToMany,
     OneToOne,
     CreateDateColumn,
+    JoinColumn,
 } from 'typeorm';
 import { OrderItem } from './OrderItem';
 import { Transaction } from './Transaction';
+import { Client } from './Client';
 
 
 @Entity('orders')

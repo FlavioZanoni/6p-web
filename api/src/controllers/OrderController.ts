@@ -8,7 +8,7 @@ import { Between, FindOptionsOrder } from "typeorm";
 export class OrderController {
 
     static async createOrder(req: Request, res: Response) {
-        const { clientId, userId, status, orderItems } = req.body;
+        const { clientId, status, orderItems } = req.body;
 
         try {
             const orderRepository = AppDataSource.getRepository(Order);
@@ -17,7 +17,7 @@ export class OrderController {
 
             const order = orderRepository.create({
                 clientId,
-                userId,
+                userId: req.userId,
                 status: status || 'Pendente',
                 total: 0,
             });
@@ -39,12 +39,12 @@ export class OrderController {
             });
 
             order.total = total;
+            await orderRepository.save(order);
             await orderItemRepository.save(orderItemsToSave);
 
             const transactionsToSave = orderItems.map((item: any) => {
                 return transactionRepository.create({
                     order,
-                    productId: item.productId,
                     amount: item.quantity,
                     type: 'Saída',
                 });
@@ -191,26 +191,51 @@ export class OrderController {
     static async getOrderById(req: Request, res: Response) {
         try {
             const { id } = req.params;
-    
+
             if (!id) {
                 return res.status(400).json({ error: 'O ID do pedido é obrigatório.' });
             }
-    
+
             const orderRepository = AppDataSource.getRepository(Order);
-    
+
             const order = await orderRepository.findOne({
                 where: { id: parseInt(id, 10) },
                 relations: ['orderItems', 'transactions'],
             });
-    
+
             if (!order) {
                 return res.status(404).json({ error: 'Pedido não encontrado.' });
             }
-    
+
             return res.status(200).json(order);
         } catch (error) {
             return res.status(500).json({ error: 'Erro ao buscar pedido por ID.', details: error });
         }
     }
-    
+
+
+    static async getTransactionById(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({ error: 'O ID da transação é obrigatório.' });
+            }
+
+            const transactionRepository = AppDataSource.getRepository(Transaction);
+
+            const order = await transactionRepository.findOne({
+                where: { id: parseInt(id, 10) },
+            });
+
+            if (!order) {
+                return res.status(404).json({ error: 'Transação não encontrada.' });
+            }
+
+            return res.status(200).json(order);
+        } catch (error) {
+            return res.status(500).json({ error: 'Erro ao buscar transação por ID.', details: error });
+        }
+    }
+
 }

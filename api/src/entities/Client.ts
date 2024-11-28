@@ -6,7 +6,7 @@ export class Client {
   id: number;
 
   @Column()
-  nome: string;
+  name: string;
 
   @Column({ unique: true })
   cpf_cnpj: string;

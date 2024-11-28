@@ -33,7 +33,7 @@ export async function exemploDeUso() {
       method: 'POST',
       headers: { ...authHeaders, Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        nome: "Fornecedor Teste",
+        name: "Fornecedor Teste",
         cnpj: "12.345.678/0001-90",
         contato: "(11) 99999-9999",
         endereco: "Rua Teste, 123"
@@ -45,7 +45,7 @@ export async function exemploDeUso() {
       method: 'POST',
       headers: { ...authHeaders, Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        nome: "Produto Teste",
+        name: "Produto Teste",
         descricao: "Descrição do produto teste",
         preco: 99.99,
         quantidade: 50,
@@ -59,7 +59,7 @@ export async function exemploDeUso() {
       method: 'POST',
       headers: { ...authHeaders, Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        nome: "Cliente Teste",
+        name: "Cliente Teste",
         cpf_cnpj: "123.456.789-00",
         contato: "(11) 88888-8888",
         endereco: "Rua do Cliente Teste, 456"

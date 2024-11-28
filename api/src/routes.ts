@@ -39,5 +39,6 @@ router.get('/orders/:id', OrderController.getOrderById);
 router.get('/orders', OrderController.listOrders);
 
 router.get('/transactions', OrderController.listTransactions);
+router.get('/transactions/:id', OrderController.getTransactionById);
 
 export { router }

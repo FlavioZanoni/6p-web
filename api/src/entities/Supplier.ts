@@ -6,7 +6,7 @@ export class Supplier {
   id: number;
 
   @Column()
-  nome: string;
+  name: string;
 
   @Column({ unique: true })
   cnpj: string;

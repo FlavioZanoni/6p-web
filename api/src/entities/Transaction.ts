@@ -17,13 +17,13 @@ export class Transaction {
     })
     type: string;
 
-    @Column()
+    @Column({ nullable: true })
     productId: number;
 
     @ManyToOne(() => Order, order => order.transactions)
     order: Order
 
-    @Column()
+    @Column({ nullable: true })
     orderId: number;
 
     @CreateDateColumn()
